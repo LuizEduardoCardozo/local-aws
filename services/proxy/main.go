@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"regexp"
 )
 
@@ -27,7 +28,12 @@ func ParseAuthHeader(authHeader string) AwsRequest {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "9000"
+	}
+	addr := fmt.Sprintf(":%s", port)
+	fmt.Printf("Server listening on port %s\n", port)
 	http.HandleFunc("/", GetAuthHeader)
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(addr, nil)
 }
-
