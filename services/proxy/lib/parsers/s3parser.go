@@ -1,8 +1,9 @@
-package lib
+package parsers
 
 import (
 	"fmt"
 	"io/ioutil"
+	"laws/lib"
 	"log"
 	"regexp"
 )
@@ -12,7 +13,9 @@ type BucketData struct {
 	FilePath   string
 }
 
-func S3Parse(awsreq AwsRequest) {
+type S3Parser struct{}
+
+func (s3parser S3Parser) Parse(awsreq lib.AwsRequest) {
 	fmt.Printf("Method: %s\n", awsreq.Req.Method)
 	fmt.Printf("URL: %s\n", awsreq.Req.URL.Path)
 
